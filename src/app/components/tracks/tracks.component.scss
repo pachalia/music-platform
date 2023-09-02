@@ -1,0 +1,73 @@
+.container {
+  width: 900px;
+  margin: 25px auto;
+  border: 2px solid black;
+  padding: 5px;
+}
+.df {
+  display: flex;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+.jcc {
+  justify-content: center;
+}
+
+.aic {
+  align-items: center;
+}
+.aie {
+  align-items: end;
+}
+
+.fdc {
+  flex-direction: column;
+}
+
+img {
+  width: 70px;
+}
+
+.track {
+  border: 1px solid gray;
+  &:not(:last-child){
+    margin-bottom: 20px;
+  }
+}
+
+.play_pause {
+  width: 100%;
+  text-align: center;
+  img {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+h2, h4 {
+  margin: 0;
+}
+.loading {
+  text-align: center;
+  color: red;
+}
+.player_track {
+  padding-left: 15px;
+}
+
+.width {
+  width: 33%;
+}
+.player {
+  height: 76px;
+  input {
+    width: 55%;
+  }
+}
+

@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="df jcsb aic">
+    <h2 [ngStyle]="{'text-align': 'center', 'width': '100%'}">Список треков</h2>
+<!--    <button>Загрузить</button>-->
+  </div>
+  <div  *ngFor="let track of tracks; let idx=index" class="track df jcsb aic">
+    <div class="df aic">
+      <div>
+        <mat-icon *ngIf="active[idx]" (click)="playful(idx)">play_arrow</mat-icon>
+        <mat-icon *ngIf="!active[idx]" (click)="pause(idx)">pause</mat-icon>
+      </div>
+      <div class="play_pause">
+        <img src="{{'https://www.andreypachalia.ru/' + track.picture}}" alt="">
+      </div>
+      <div class="df" [ngStyle]="{'flex-direction': 'column', 'width':'300px'}">
+        <h3 [ngStyle]="{'margin':0}">id - {{track.id}}</h3>
+        <h3 [ngStyle]="{'margin':0}">Title - {{track.name}}</h3>
+        <h3 [ngStyle]="{'margin': 0}" >Artist - {{track.artist}}</h3>
+      </div>
+    </div>
+
+    <div>
+      <mat-icon (click)="delete(track.id)">delete</mat-icon>
+    </div>
+  </div>
+</div>
+<div>
+  <h2 [ngStyle]="{'text-align': 'center'}">{{currentTrack.name}}</h2>
+  <h4 [ngStyle]="{'text-align': 'center'}">{{currentTrack.artist}}</h4>
+</div>
+<div class="player df jcsb aic">
+  <div class="df aic width">
+    <div [ngStyle]="{'width': '100%', 'text-align': 'center'}" *ngIf="currentTrack.id">
+      <mat-icon *ngIf="status" (click)="player(currentTrack.id)">play_arrow</mat-icon>
+      <mat-icon *ngIf="!status" (click)="player(currentTrack.id)">pause</mat-icon>
+    </div>
+    <div>
+      <img src="{{'https://www.andreypachalia.ru/' + currentTrack.picture}}" alt="">
+    </div>
+<!--    <div>-->
+<!--      <h2>{{currentTrack.name}}</h2>-->
+<!--      <h4>{{currentTrack.artist}}</h4>-->
+<!--    </div>-->
+  </div>
+  <div class="df aie width jcc">
+    <p>{{progress / 100 | percent}}</p>
+    <input type="range"
+           min="0"
+           max="100"
+           value="{{progress}}"
+           (change)="currentTimeChange($event)"
+           [disabled]="!duration">
+    <p>{{currentTime * 1000 | date: 'mm:ss': 'UTC'}}/{{duration * 1000 | date: 'mm:ss': 'UTC'}}</p>
+  </div>
+
+  <div class="width df jcc">
+    <mat-icon *ngIf="volIcon" (click)="vol_mute()">volume_up</mat-icon>
+    <mat-icon *ngIf="!volIcon" (click)="vol_up()">volume_off</mat-icon>
+    <input type="range"
+           min="0"
+           max="100"
+           value="{{vol}}"
+           (change)="volume($event)"
+    >
+
+  </div>
+</div>
+<router-outlet></router-outlet>
