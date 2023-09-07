@@ -6,6 +6,7 @@ import {TracksService} from "../../services/tracks.service";
 import {Subscription} from "rxjs";
 import {AudioService} from "../../services/audio.service";
 import {AudioStoreService} from "../../services/audio-store.service";
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -24,14 +25,23 @@ export class TracksComponent implements OnInit {
   status = false
   duration: number
   currentTime:number
-  prevVolume: number
   progress
+
 
 
   constructor(private router: Router, private http: HttpClient,
               private trackService: TracksService,
               private audio: AudioService,
-              public store: AudioStoreService) {}
+              public store: AudioStoreService) {
+    this.trackService.getAll().subscribe({next:(val)=>{
+      this.store.state={...this.store.state, tracks:val}
+        const tracks = this.store.state.tracks
+        tracks.forEach((val:any, i:number)=>{
+          this.active[i] = true
+        })
+        this.store.state={...this.store.state, active: this.active}
+      }})
+  }
 
 
  ngOnInit(): void {
@@ -48,10 +58,6 @@ export class TracksComponent implements OnInit {
     })
  }
 
-  downloadTracks() {
-    this.router.navigate(['create'])
-  }
-
    playful (idx: number ) {
     this.audio.playful(idx)
      return
@@ -63,6 +69,9 @@ export class TracksComponent implements OnInit {
 
 
    pause(idx: number) {
+    this.store.state = {
+      ...this.store.state
+    }
     this.audio.pause(idx)
    }
 
@@ -70,6 +79,7 @@ export class TracksComponent implements OnInit {
     this.dSub = this.trackService.delete(id).subscribe(() =>{
       this.tracks = this.tracks.filter(track => track.id !== id)
     })
+   this.store.state={...this.store.state, currentTrack:{nameTrack: {}, status:this.status, currentTime: 0, duration:0}}
   }
 
   vol_mute() {
@@ -105,5 +115,8 @@ export class TracksComponent implements OnInit {
   currentTimeChange(e) {
   return this.audio.audioChangeTime(Math.round(this.duration * e.target.value /100))
   }
+
+  protected readonly environment = environment;
+
 }
 

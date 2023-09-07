@@ -1,3 +1,73 @@
-<h1>Загрузка трека</h1>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h1 [ngStyle]="{'text-align': 'center'}">Загрузка треков</h1>
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('name').touched && form.get('name').invalid}"
+    >
+      <label for="name">Название песни</label>
+      <input id="name" type="text" formControlName="name">
+      <div
+        *ngIf="form.get('name').touched && form.get('name').invalid"
+        class="validation"
+      >
+        <small *ngIf="form.get('name').errors['required']">
+          Введите название песни
+        </small>
+      </div>
+    </div>
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('artist').touched && form.get('artist').invalid}"
+    >
+      <label for="artist">Название группы</label>
+      <input id="artist" type="text" formControlName="artist">
+      <div
+        *ngIf="form.get('artist').touched && form.get('artist').invalid"
+        class="validation"
+      >
+        <small *ngIf="form.get('artist').errors['required']">
+          Введите название группы
+        </small>
+      </div>
+    </div>
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('text').touched && form.get('text').invalid}"
+    >
+      <label for="text">Текст песни</label>
+      <input id="text" type="text" formControlName="text">
+<!--      <div-->
+<!--        *ngIf="form.get('text').touched && form.get('text').invalid"-->
+<!--        class="validation"-->
+<!--      >-->
+<!--        <small *ngIf="form.get('text').errors['required']">-->
+<!--          Введите текст песни-->
+<!--        </small>-->
+<!--      </div>-->
+    </div>
+    <div
+      class="form-control"
+    >
+      <label for="picture">Обложка альбома</label>
+      <input #imageInput id="picture" type="file" accept="image/*" formControlName="picture" (change)="onSelectPicture($event)" >
+      <div *ngIf="form.get('picture').value" [ngStyle]="{position: 'relative'}">
+        <div  (click)="closePicture()" class="close" [ngStyle]="{cursor: 'pointer'}"></div>
+        <img [src]="imagePreview" alt="">
+      </div>
+    </div>
+    <div
+      class="form-control"
+    >
+      <label for="audio">Трэк</label>
+      <input #audioInput id="audio" type="file" accept="audio/*" formControlName="audio" (change)="onSelectAudio($event)">
+      <div *ngIf="form.get('audio').value" [ngStyle]="{position: 'relative'}">
+        <div  (click)="closeAudio()" class="close" [ngStyle]="{cursor: 'pointer'}"></div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center" [ngStyle]="{marginBottom: '30px'}" >
+      <button  type="submit" class="btn btn-primary" [disabled]="form.invalid">Отправить</button>
+    </div>
+  </form>
+</div>
 
-<router-outlet></router-outlet>

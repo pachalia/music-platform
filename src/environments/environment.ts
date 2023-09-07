@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  tracks: 'https://www.andreypachalia.ru/tracks/'
+  host: 'https://www.andreypachalia.ru/'
 };
 
 /*

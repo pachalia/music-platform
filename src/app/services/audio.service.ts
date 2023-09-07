@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AudioStoreService} from "./audio-store.service";
+import {environment} from "../../environments/environment";
 
 
 
@@ -58,8 +59,7 @@ private audio = new Audio()
       }
     }
     this.audio.volume=this.store.state.volume / 100
-    this.audio.src="https://www.andreypachalia.ru/" + list[idx].audio
-
+    this.audio.src=environment.host + list[idx].audio
     this.audio.onloadedmetadata=()=>{
       this.store.state={
         ...this.store.state,
@@ -94,6 +94,14 @@ private audio = new Audio()
 
   audioChangeTime(t:any) {
     this.audio.currentTime=t
+    this.currentTime()
+    const activeId=this.store.state.currentTrack.nameTrack.id
+    const tracks = this.store.state.tracks
+    const active:boolean[] = []
+    tracks.forEach((val, i) =>{
+      activeId===val.id ? active[i] = false : active[i]=true
+    })
+    this.store.state={...this.store.state, currentTrack:{...this.store.state.currentTrack, status: false}, active}
   }
 
   currentTime() {

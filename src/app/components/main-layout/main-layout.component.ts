@@ -19,7 +19,7 @@ export class MainLayoutComponent {
   nav = [
     {name: 'Главная', href: '/'},
     {name: 'Список треков', href: 'tracks'},
-    {name: 'Список Альбомов', href: 'albums'}
+    {name: 'Загрузка треков', href: 'create'}
   ]
 
   constructor(private breakpointObserver: BreakpointObserver) {}

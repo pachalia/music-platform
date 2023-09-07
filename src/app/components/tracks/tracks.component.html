@@ -1,7 +1,6 @@
 <div class="container">
   <div class="df jcsb aic">
     <h2 [ngStyle]="{'text-align': 'center', 'width': '100%'}">Список треков</h2>
-<!--    <button>Загрузить</button>-->
   </div>
   <div  *ngFor="let track of tracks; let idx=index" class="track df jcsb aic">
     <div class="df aic">
@@ -10,7 +9,7 @@
         <mat-icon *ngIf="!active[idx]" (click)="pause(idx)">pause</mat-icon>
       </div>
       <div class="play_pause">
-        <img src="{{'https://www.andreypachalia.ru/' + track.picture}}" alt="">
+        <img *ngIf="track.picture" src="{{environment.host + track.picture}}" alt="">
       </div>
       <div class="df" [ngStyle]="{'flex-direction': 'column', 'width':'300px'}">
         <h3 [ngStyle]="{'margin':0}">id - {{track.id}}</h3>
@@ -18,7 +17,6 @@
         <h3 [ngStyle]="{'margin': 0}" >Artist - {{track.artist}}</h3>
       </div>
     </div>
-
     <div>
       <mat-icon (click)="delete(track.id)">delete</mat-icon>
     </div>
@@ -35,12 +33,8 @@
       <mat-icon *ngIf="!status" (click)="player(currentTrack.id)">pause</mat-icon>
     </div>
     <div>
-      <img src="{{'https://www.andreypachalia.ru/' + currentTrack.picture}}" alt="">
+      <img *ngIf="currentTrack.picture" src="{{environment.host + currentTrack.picture}}" alt="">
     </div>
-<!--    <div>-->
-<!--      <h2>{{currentTrack.name}}</h2>-->
-<!--      <h4>{{currentTrack.artist}}</h4>-->
-<!--    </div>-->
   </div>
   <div class="df aie width jcc">
     <p>{{progress / 100 | percent}}</p>
@@ -62,7 +56,6 @@
            value="{{vol}}"
            (change)="volume($event)"
     >
-
   </div>
 </div>
 <router-outlet></router-outlet>

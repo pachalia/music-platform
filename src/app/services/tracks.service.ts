@@ -15,10 +15,10 @@ export class TracksService{
   }
 
   getAll(): Observable<Tracks[]> {
-    return this.http.get<Tracks[]>(environment.tracks)
+    return this.http.get<Tracks[]>(environment.host+'tracks')
   }
 
   delete(id:number): Observable<void> {
-    return this.http.delete<void>(environment.tracks+id)
+    return this.http.delete<void>(environment.host+`tracks/${id}`)
   }
 }
